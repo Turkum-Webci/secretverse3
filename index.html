@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secretverse</title>
+    <style>
+        @keyframes a{
+            0%{
+                background-color: black;
+            }
+            50%{
+                background-color: rgb(15, 15, 15);
+            }
+            100%{
+                background-color: black;
+            }
+        }
+        body{
+            background-color: black;
+            animation: a 1s ease infinite;
+        }
+        #rsm,#rsm2,#rsm3{
+            width: auto;
+            border-radius: 10px;
+        }
+        #rsm2, #rsm3{
+        width: 300px;
+        display: inline;
+        border: 3px solid white;
+        margin-right: 20px;
+        }
+        #yazi{
+            background-color: gray;
+            border-radius: 10px;
+            padding: 10px;
+            border: 3px solid black;
+        }
+        #normal{
+            display: none;
+            background-color: black;
+            color: whitesmoke;
+            width: 100%;
+            height: 100%;
+        }
+        #jumpscare{
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+        }
+        #kam, #jumpscare, #pilcala{
+            display: none;
+        }
+        #kam{
+            border: 3px solid white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px white;
+            background-color: gray;
+            padding: 10px;
+        }
+        #pilcala{
+            border: 3px solid white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px white;
+            background-color: gray;
+            padding: 10px;
+        }
+        #rsm23{
+            transition: all 0.1s ease-in;
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            height: auto;
+            transform: translate(50%, 50%);
+        }
+        @keyframes jump2{
+            0%{transform: translate(50%, 50%) scale(0.3) rotate(-15deg);opacity: 0;}
+            20%{transform: translate(50%, 50%) scale(1.4) rotate(8deg);opacity: 1;}
+            40%{transform: translate(50%, 50%) scale(1.1) rotate(-6deg);}
+            60%{transform: translate(50%, 50%) scale(1.5) rotate(5deg);}
+            80%{transform: translate(50%, 50%) scale(1.2) rotate(-3deg);}
+            100%{transform: translate(50%, 50%) scale(1.3) rotate(0deg);opacity: 1;}
+        }
+        @keyframes jump3{
+            0%,100%{transform: translate(0, 0);}
+            10%{transform: translate(-10px, -8px);}
+            20%{transform: translate(9px, 6px);}
+            30%{transform: translate(-7px, 4px);}
+            40%{transform: translate(6px, -5px);}
+            50%{transform: translate(-5px, 7px);}
+            60%{transform: translate(4px, 6px);}
+            70%{transform: translate(-3px,3px);}
+            80%{transform: translate(3px,-2px);}
+            90%{transform: translate(-2px, 2px);}
+        }
+        #rsm23{
+            animation: jump2 0.7s ease-out infinite;
+        }
+        #jumpscare{
+            animation: jump3 0.5s linear infinite;
+        }
+    </style>
+    <script>
+        var oyund = {
+basladimi: false,
+ilerleme: 0,
+kapikapali: true,
+geldi: false,
+geldi2: false,
+geldi3: false,
+kamera: false
+        };
+    </script>
+</head>
+<body>
+    <div id="hepsi">
+    <div id="bslngc">
+        <center><div id="resim"><img src="resim1.png" alt="resim yüklenmedi." id="rsm"></div></center>
+        <div id="yazi">
+            <center><p id="yazii">Sen Oğuz'dun.Ve okulda spor salonunda gizli bir yere gitmiştin ve uzun, karanlık bir merdiven vardı elindeki fener ile ilerliyordun.</p>
+            <button onclick="ILERI()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;" id="btnn">İleri.</button>
+        <button onclick="GERI()" style="border-radius: 10px;border: 1px solid aqua;width: 200px;" id="btnn">Buraya girmemeliyim herşey olabilir en iyisi geri döneyim.</button></center>
+        </div>
+    </div>
+    <div id="normal">
+        <p id="enerji">Enerji: 500</p>
+<button onclick="CAM()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Kameraya bak.</button>
+<button onclick="KAPI()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;" id="btn">Kapıyı Aç. (5sn/-1e)</button>
+<button onclick="IHYT()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;" id="btn">İHYT'ye mesaj gönder.</button>
+<button onclick="PILCAL()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;" id="btn">Pilçalan ile konuş.</button>
+    </div>
+    <div id="kam">
+        <button onclick="KPT()">X</button>
+        <img src="düzarkapl.png" alt="" id="rsm2">
+        <img src="düzarkapl.png" alt="" id="rsm3">
+        <p id="nottt">Not: yok.</p>
+    </div>
+    </div>
+    <div id="pilcala">
+        <button onclick="KPT2()">X</button>
+        <p id="pilc">Pilçalan: Oğuz, Noldu?</p>
+        <button onclick="YARDIM()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Pilçalan, korkuyorum yardım et lütfen.</button>
+        <button onclick="DUZKONUS()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Pilçalan, kimsin?</button>
+        <button onclick="IHYTDUS()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Pilçalan, İHYT sana saldırı yapabilir.</button>
+        <button onclick="SAKA()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Hırre'de takmış kedi maskesini sanki birşey oluyor gibi.</button>
+        <button onclick="IHYTBILG()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">İHYT hakkında bilgin varmı?</button>
+        <button onclick="ISIK()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Pilçalan, Işığı açsana yav.</button>
+        <button onclick="BILGI()" style="border-radius: 10px;border: 1px solid aqua;width: 100px;">Pilçalan, Bildiklerini anlatırmısın?</button>
+    </div>
+    <div id="jumpscare"><img src="kedijump.png" alt="jumpscare" style="width: 50%;height: auto;" id="rsm23"></div>
+    <script>
+        var enerji = 500;
+        var ihytanl = 0;
+        var tklm = false;
+        var tklm2 = false;
+        var saniye = 0;
+        var pilc = document.getElementById("pilc");
+        var drmlr = {
+yardim:false,
+ihytdus:false,
+isik:false,
+fotononom:false
+        };
+        function YARDIM(){
+            if(!drmlr.yardim){
+            drmlr.yardim = true;
+            pilc.textContent = "Pilçalan: Tamam, korkmana gerek yok burda kimsenin amacı sana zarar vermek değil.Hem biraz daha kısa sürede bitirirsin inşAllah sana biraz enerji verdim.";
+            enerji += 30;
+            saniye += 10;
+            }
+            else{
+                pilc.textContent = "Pilçalan: Bunu söyledin ya.";
+            }
+        }
+        function DUZKONUS(){
+            pilc.textContent = "Pilçalan: Ben mi?Ben düz bir öğrenciyim senin gibi.Ve buraya geliş hikayemde şöyle:\nBen buraya senden hatta mehmet ali ş.'dan daha önce geldim.Bende senin gibi spor salonunun önündeki odayı falan merak ettim tabii benim yanımda bolca yemek ve su vardı ışıkta vardı ve öyle yaşadım bir süre sonra pilim azalınca burdaki pilleri almaya başladım ve sonra hırre,mehmet ali ş. ve secretgöz geldi hırre ile çok iyi anlaştığım söylenemez ve istesem çıkabilcek olsamda çıkmak yerine buraya gelenlerden birazcık pil çalıp birazda yardım ediyorum.Pil çalma nedenimde basit: buradaki ışıklar gitmesin diye.Ve gerekince geri size veriyorumda.";
+        }
+        function IHYTDUS(){
+            if(!drmlr.ihytdus){
+                drmlr.ihytdus = true;
+                if(Math.random() < 0.5){
+            pilc.textContent = "Pilçalan: Beni ilgilendirmez.Onlar birşey yapmazar.";
+            ihytanl -= 30;
+            }
+            else{
+                pilc.textContent = "Pilçalan: Teşekkür ederim bu haberi verdiğin için biraz sana pil verdim savunma yapabilmen için.";
+                enerji += 75;
+                ihytanl -= 100; //ihyt bunları sevmez.
+            }
+            }
+            else{
+                pilc.textContent = "Pilçalan: Dedin ya neden tekrar ediyorsun?";
+                ihytanl -= 5;
+            }
+        }
+        function SAKA(){
+            pilc.textContent = "Pilçalan: Haklısın :D bizde bilmiyoz ki de okulun zaten simgesi kedi sayılır.He birde hırre'nin normal yüzünüde gördüm normal bir insan işte yani.";
+        }
+        function BILGI(){
+            drmlr.fotononom = true;
+            var yazi = `
+            Bildiklerim şunlar:
+            <h3>Fotononom Fantomları</h3>
+            Fotononom Fantomları, Küf + O2 + Işık birleşimi ile çıkan anlık gözüken ve yüz,göz benzeri korkunç duran bir gazdır.Bu gaz zararsızdır ancak bu gaz garip durur ve insan gözüde bunu yüz,göz gibi korkunç şeylere benzetir.Bunun çözümü ise <b>Fosfor</b>'dur.Ancak korkma fotononom fantomları burda yok ben eskiden derinlere inince derinlerde küf ve o2 daha yoğun olduğundan secretverse'in derinlerinde fotononom fantomları olur.Ama derinlerde birşey yok ve inmemelisin derinler tehlikeli.Ve İHYT belki oraya araştırma birimi gönderilir.
+            <h3>Mehmet Ali Ş.</h3>
+            Mehmet Ali Ş.'nın nerde kaldığını belki görmedin ama kaldığı yer çok küçük bir yer.İçinde çoğu zaman her 3 günde bir gelen 3 günlük yiyecek ve 6 litre su olur (3 günde bir gelen.).Tabii ben önceden mehmet ali ş.'nın atılcağını duyunca ihyt ile haberleşebilsin diye kalacağı yere gizli bir yer yaptım ve o gizli şeyin içinde telefon var ve ihyt ile haberleşebiliyorda.Hırre ise onu sopa ile tutuyor ama bize hırre saldırmıyor yada sopa vurmuyor.Sadece yanımmıza gelip kızıyor.
+            <h3>Benim hakkımda</h3>
+            Ben her 3-4 günde bir dışarı çıkıyorum secretverse'ten ve haber alıyorum falan.Ve arada bir burdaki kedimiz mandalinayı beslemek için mama falan alıyorum bazen pil satıyorum tabii sizden çaldıklarımı satmıyorum.Ve yiyecek-içecekte alıyorum öyle yani.Birde benimde mehmet ali ş.'nında elinde pergel tutan fosforlu filament ile basılmış bir kedi figürü var bu secretverse'in sembolü.
+            <h3>Secretverse'in derin yeri</h3>
+            Çok gitmedim ama gittim orda fotononom fantomları falan oluşuyor fener vardı elimde.Çok bilindik bir yer değil orda insanlarda yok.İnmeni önermem hatta direkt inme.Belki ama İHYT araştırabilir ki bu en yüksek ihtimal.Yani o aşağıda çok birşeyde yok.Ve ilk fotononom fantomu görünce orda baya korkmuştum ve dahada inmem dedim.
+            `;
+            pilc.innerHTML = "Pilçalan: " + yazi;
+        }
+        function IHYTBILG(){
+            pilc.textContent = "Pilçalan: Elbette.Furkan'ı iyi tanırım ve duyduğuma göre yeni operasyon yapıcaklarmış.Bir öğretmenin yaramazlar kitabındaki Öğretmen'in amacı eğitimdir öğrencinin hayatına bulaşmak değil ilkesini çiğnediğini ve çevresindeki öğrencilerden istihbarat aldığını öğrendiler.Ve o bilgi sızdıran öğrencileri bulmak için araştırmaya başladılar.Buluncada İHYT Konferansında bahsedecekler ve öğretmenide uyaracaklar.";
+        }
+        function ISIK(){
+            if(!drmlr.isik){
+            pilc.textContent = "Pilçalan: Açtım.Biraz enerji gitti ama.";
+            document.body.style.animation = 'none';
+            document.body.style.backgroundColor = 'gray';
+            enerji -= 30;
+            drmlr.isik = true;
+        }
+        else if(drmlr.isik){
+            pilc.textContent = "Pilçalan: Açık ya.";
+        }
+        }
+        var mesajlar = ["Burası Secretverse spor salonunun önündeki kapıdan indim", "Pilçalan diye birisi var", "Bana yardım edermisiniz kedi maskeli birisi var burda", "Burda garip bir robot var", "Herhalde devamsız lakaplı mehmet ali ş. burda olmalı", "Mücotac hocanın garip planları var", "Secretverse'e merdivenden falan iniceksiniz öyle geliceksiniz", "Secretverse'e kurtarma birimi gönderin lütfen."];
+        var gndrl = false;
+        function IHYT(){
+            if(drmlr.fotononom && !gndrl){
+                gndrl = true;
+                mesajlar.push("Fotononom Fantomları diye birşey var bakabilirmisiniz?");
+            }
+            document.getElementById("nottt").textContent = "Not: " + mesajlar[Math.floor(Math.random() * mesajlar.length)] + " Gönderdin.";
+            if(document.getElementById("nottt").textContent.includes("Fotononom")){
+                document.getElementById("nottt").textContent = "Not: İHYT: Fotononom fantomları mı?Hmm.. araştırmalıyız.Sanada verdiğin bu bilginden dolayı 20 enerji verdik.";
+                enerji += 30;
+                saniye += 7;
+            }
+            enerji -= 10;
+            ihytanl += Math.floor(Math.random() * 7);
+        }
+        function PILCAL(){
+            document.getElementById("hepsi").style.display = "none";
+            document.getElementById("pilcala").style.display = "block";
+            oyund.basladimi = false;
+        }
+        function KPT2(){
+            document.getElementById("hepsi").style.display = "block";
+            document.getElementById("pilcala").style.display = "none";
+            oyund.basladimi = true;
+        }
+        function GERI(){
+            alert("Sen geri döndün ve Mehmet Ali Ş. orda kaldı.Tabii sende bilmiyorsun sadece okulda diğerlerine olayı anlattın ve İHYT araştırma için birim gönderdi.");
+            alert("Ve sorun şu:Sen niye geri dönüyorsun?Eee oyuna geri dönüceksen niye girdin?");
+            alert("Son:Geri gitme.");
+            window.location.href = location.href;
+        }
+        setInterval(function(){
+            if(oyund.kapikapali){
+                oyund.geldi = false;
+                oyund.geldi2 = false;
+            }
+        }, 2000);
+        function KAPI(){
+            if(tklm){
+            oyund.kapikapali = true;
+            tklm = false;
+            document.getElementById("btn").textContent = "Kapıyı Aç";
+            }
+            else if(!tklm){
+            oyund.kapikapali = false;
+            tklm = true;
+            document.getElementById("btn").textContent = "Kapıyı Kapat";
+            }
+        }
+        function KPT(){
+            document.getElementById("kam").style.display = "none";
+            oyund.kamera = false;
+        }
+        function CAM(){
+            document.getElementById("kam").style.display = "block";
+            oyund.kamera = true;
+        }
+        function ILERI(){
+            oyund.ilerleme += 1;
+            if(oyund.ilerleme == 1){
+                document.getElementById("rsm").src = "resim2.png";
+                document.getElementById("yazii").textContent = "Sonra aşağıya inince karşına bir masa ve üzerinde not olan bir kağıt gördün.Ve mavi garip birşey gördün.";
+                document.getElementById("btnn").textContent = "Kağıda Bak.";
+            }
+            else if(oyund.ilerleme == 2){
+                document.getElementById("rsm").src = "resim.png";
+                document.getElementById("yazii").textContent = "Yazıyı okudun.Yazıda sizin Devamsız lakabı verdiğiniz ve okula gelemeyen Mehmet Ali Ş. vardı.Ve mücotac hocanın planlarını öğrenmiştin.Artık o mavi garip şeye atlayıp oraya gitmeyi düşündün.Oranın adının da secretverse olduğunuda duydun.";
+                document.getElementById("btnn").textContent = "İçeri Dal.";
+            }
+            else if(oyund.ilerleme == 3){
+                document.getElementById("bslngc").style.display = "none";
+                document.getElementById("normal").style.display = "block";
+                oyund.basladimi = true;
+            }
+        }
+        var calenerji = 0;
+        setInterval(function(){
+            if(oyund.basladimi){
+            if(oyund.geldi){
+            document.getElementById("rsm2").src = "kedimengelir.png";
+            }
+            else if(!oyund.geldi){
+            document.getElementById("rsm2").src = "düzarkapl.png";
+            }
+            if(oyund.geldi2){
+            document.getElementById("rsm3").src = "secretgoz.png";
+            }
+            else if(!oyund.geldi2){
+            document.getElementById("rsm3").src = "düzarkapl.png";
+            }
+            if(oyund.kapikapali){
+                enerji -= 1;
+                document.getElementById("enerji").textContent = enerji;
+            }
+            if(oyund.kamera){
+                enerji -= 0.5;
+                document.getElementById("enerji").textContent = enerji;
+            }
+            if(ihytanl > 150){
+                enerji += 3;
+                saniye += 1;
+                if(Math.random() > 0.70){
+                    document.getElementById("nottt").textContent = "Not: İHYT olarak daha çok araştıracağız secretverse'yi.Sen şuanda verdiğimiz enerji ile dayan.Ve daha erken geleceğiz.";
+                    enerji += 5;
+                    saniye += 8;
+                }
+            }
+            else if(ihytanl > 96){
+                enerji += 2;
+                if(Math.random() > 0.90){
+                    document.getElementById("nottt").textContent = "Not: İHYT olarak daha çok araştıracağız secretverse'yi.Sen şuanda verdiğimiz enerji ile dayan.";
+                    enerji += 8;
+                }
+            }
+            else if(ihytanl > 65){
+                enerji += 1;
+                if(Math.random() > 0.99){
+                    document.getElementById("nottt").textContent = "Not: İHYT olarak daha çok araştıracağız secretverse'yi.Sen şuanda verdiğimiz enerji ile dayan.";
+                    enerji += 15;
+                }
+            }
+            else 
+            if(!oyund.kapikapali && !oyund.kamera && enerji <= 60 && Math.random() < 0.1 && saniye >= 200){
+                    document.getElementById("nottt").textContent = "Not: Sen kötü durumdasın.. Ama İHYT Araştırma birimi buldu, geldi ve sana 300 enerji verdi.Ve Mahmut'ta sana nasılsın diye soruyor.Ve Huzeyfenin sana selamı olduğunuda söylüyor.Ve sana yemekte verdiler ve yakında çıkacağınıda dediler.";
+                    enerji += 300;
+            }
+            if(oyund.geldi3){
+                if(oyund.kapikapali && oyund.kamera){
+                    document.getElementById("nottt").textContent = "Not: Pilçalan kötü biri değil.\nPilçalan az önce şu notu bıraktı:\nOğuz, Pillerini çalmıyorum tam olarak.Sadece alıyorum ve sonra geri vereceğim.Ek olarak burda yemek yok/uyuyamam gibi şeyler deme tüm ihtiyaçlarını burda giderebilirsin.Yada Hırre mesela kötü biri değil normal bir insan.Ve ışık yok deme istersen bende fener var açabilirim.Ve benden hediye olsun: Normalde 50 enerji alırdım bu sefer 40 enerji aldım sadece.He birde biz yiyecekleri burdaki sebze/meyve üreten küçük seramızdan alıyoruz içinde elma ağacı,domates,zeytin,çilek,mandalina falan yetişiyor.";
+                    enerji += 10;
+                    calenerji -= 10;
+                }
+                if(!oyund.kapikapali && oyund.kamera && enerji <= 70){
+                    document.getElementById("nottt").textContent = "Not: Pilçalan sana jumpscare atsada durumun çok kötü olduğundan şuana kadar aldığı enerjinin iki katını sana geri verdi.";
+                    enerji += calenerji * 2;
+                }
+                document.getElementById("hepsi").style.display = "none";
+                document.getElementById("jumpscare").style.display = "block";
+                document.getElementById("rsm23").src = "pilcalan.png";
+                enerji -= 50;
+                calenerji += 50;
+                setTimeout(function(){
+                document.getElementById("hepsi").style.display = "block";
+                oyund.geldi3 = false;
+                document.getElementById("jumpscare").style.display = "none";
+                }, 1000);
+            }
+            if(enerji <= 0){
+                document.getElementById("hepsi").style.display = "none";
+                oyund.geldi2 = true;
+            }
+            saniye += 1;
+            if(saniye >= 280){
+                oyund.geldi = false;
+                alert("Mehmet Ali Ş.:Sen kimsin?");
+                alert("Sen:Ben Oğuz.Sen Mehmet Ali olmalısın.");
+                alert("Mehmet Ali Ş.:Evet.Mücotac hoca beni buraya gönderdi");
+                alert("Sen:Tamam o zaman gel.");
+                alert("Olay:Dışarı Çıkarsınız.");
+                alert("İHYT Temsilcisi:Oğuz.. Sen neredeydin?Günlerdir yoksun.");
+                alert("Sen:Ben mi?Ben secretverse diye bir yere gittim.Şöyle oldu:Spor salonu varya okulda oraınn birde önünde kapı var oraya girmiştim sonra bakarken bir baktım aşağıya giden bir kapı var merak ettim açtım elimdede fener vardı sonra merdiven çıkmıştı baya karanlıktı aşağıya inmiştim sonra mavi garip birşey görmüştüm ve bir not görmüştüm.");
+                alert("İHYT Temsilcisi:Notta ne yazıyordu?");
+                alert("Sen:Notta mı?Notta: Mehmet Ali Ş.'yı Secretverse'e gönderdik.Sırada Furkan var.Eğer furkanıda gönderirsek A şubesi ayın sınıfı olucak.-Mücotac hoca.");
+                alert("İHYT Temsilcisi:N-NE?! FURKANIDA MI GÖNDERCEKLERDİ!? NASIL OLUR BU? ve not aldın mı?");
+                alert("Sen:Evet bende yaşadıklarımı not aldım.He birde sonra o notu görünce o garip mavi şeye atladım ve karanlık bir yere geldim orda kamera ve kapıyı kapatma vardı onları yaptım sonra üç tanede garip canlı gördüm bunlar:Hırre (kedi olan),Secretgöz ve Pilçalan.");
+                alert("İHYT Temsilcisi:Tamamdır.. teşekkür ederiz.Araştırmalar yapacağız bu konuda.");
+                alert("Olay:8 gün sonra");
+                alert("İHYT Temsilcisi:BULDUK!! Olayın arkaplanında Mücotac Hoca, Es-Sultan Ahmet (artık sultan değil ama :D) ve Mahmut varmış.Hocalardan dahaca bulamadık.");
+                alert("İHYT Temsilcisi:Oğuz.. Dur gitme asıl haber şu: Biz İmam Hatip Yaramazlar Topluluğu olarak araştırma birimini secretverse'e gönderdik.Ve araştırma birimide geri döndü ve ordaki şeyleri tamamen öğrendiler.");
+                alert("Sen:Ne var mesela?");
+                alert("İHYT Temsilcisi:Orası portal falan değilmiş... sen sadece oraya girince içeri düştün ve başka bir yere ışınlanmadın.Ve aklına hiç yukarı bakmak geldi mi?");
+                alert("Sen:Hayır.");
+                alert("İHYT Temsilcisi:Baksaydın ama yukarı çıkardın direkt.");
+                alert("Sen:Peki Hırre,Secretgöz ve Pilçalan kimler o zaman?");
+                alert("İHYT Temsilcisi:Hırre orda Mehmet Ali Ş. çıkmasın diye duran bir kişi.Yüzünede kedi maskesi takmış ki belli olmasın.Secretgöz ise bir robot aniden çıkabiliyor.Pilçalan ise normal bir insan secretverse'e düşmüş sonra orda çok pil görmüş ve çıkabileceğinide fark etmiş demiş ben şimdi boşuna burda beklemeyeyim demiş ve pilleri çalmaya başlamış.Onuda çıkarttık ve şuan Mücotac hoca'da Mehmet Ali Ş.'yı Secretverse'e gönderdiğinden dolayı yargılanıyor.");
+                alert("Sen:Yani.. yani boşunamıymış.Ve niye 2 dakika boyu durdum?"); //4. duvarı biraz kıralım.
+                alert("İHYT Temsilcisi:Çünkü 2 dakikadan daha uzun sürse enerjin biterdi oyun oynanılmaz olurdu-Pardon o 32dakika değil ki oyunda 2 dakika sen onu 2-3 gün diye düşün.");
+                alert("Sen:Peki herşeyi anladımda niye mücotac hoca mehmet ali ş.'yı gönderdi?");
+                alert("İHYT Temsilcisi:Çünkü o potansiyel bir yaramazdı.Mücotac hoca ise bu sene diğer seneler daha yumuşaktı.Ve potansiyel yaramaz dediysemde o Furkan'ın yaramazlar kitabını okumuş, disipline gitmek için doğmuş ve okulunun düzenini alt üst edicek birisiydi.");
+                alert("Sen:Peki Secretverse'i kim yaptı?");
+                alert("İHYT Temsilcisi:Orası okul yapıldığından beri öyleydi.Eskiden okulun altında bir sığınak vardı.Sonra o sığınak kapatılmıştı ve o girdiğin kapıdaki aşağı inen yerde o sığınağa iniyordu okul onu kaldırmayı unutmuştu.Sonra ordan aşağıya indiğinde sığınaktaki garip mavi şey dediğin şey senin sığınaktaki ışıklardı.Sonra oranın altını unutup boş bırakmışlardı.Ardından o boş bırakılan kısım çökmüştü ve sonra bu hatırlanıp mehmet ali ş.'yı göndermek için hazırlanmıştı.Ve şuanki haline geldi.");
+                alert("Sen:Peki tek değilde sence İHYT üyeleriyle gitseydim nolurdu?");
+                alert("İHYT Temsilcisi:Zaten biz gönderdik ve hiçbirine birşey olmadı çünkü onlar güçlüler.İHYT oldukça güçlüdürde.Ve hani müdür mücotac hoca diyordu ya furkan'ı da göndereceğiz diye.Bizim kurucularımızdan olan, büyük yaramaz olan, seninde şuben olan b'den a'ya atılıp a şubesinide ayın sınıfı olmaktan uzaklaştıran, yaramazlar kitabının yazarı, mücotac hocanın ve nice hocaların bile adam edemediği tek öğrenci olan furkandır o.");
+                alert("Sen:Furkan birde nerde?");
+                alert("İHYT Temsilcisi:Şuan mı?Şuan okulda.");
+                alert("Furkan:Oğuz napıyon he.");
+                alert("Sen:İyide sen ne ara geldin?");
+                alert("Furkan:Onu takma sen.Mücotac hoca gitti ya yeni gelen hoca beni geri b şubesine almayı düşünüyo.");
+                alert("Sen:İHYT mi kazandı yani?");
+                alert("Furkan:Elbette.Yaramazlar kitabını verdim okursun.");
+                alert("Kitap:Sayfa 12\nSÖZ:\nBir yaramaz, Bin usluya bedeldir.Bin uslu en ufak yapması gereken dışında birşey yapmazken bir yaramaz bile onlardan daha çok şey yapar.\nBiz bulmuştuk secretverse denirdi bir yer vardı.Yeni biri gelcekti sınıfa mehmet ali ş. o gelmemiştide.Sonra burayı yazmaya başladım.Biz İHYT olarak bunu araştırmaya çalışırken aramızdan bir kişi durumu sızdırmış ve o kapıyı kilitlettirmiş.Sonra bizde onu bulup attık.Hala ama orda ne olduğunu bilmiyoruz.Ve ne zaman anlayacaklar bir yaramazı yenemeyeceklerini?Bize karşı tutanak tuttular, Disiplin dediler, Eksi dediler birşey olmadı bize birşey işlemez ki.Ve o secretgöz adında yapılmış şeyide merak ettim.Ve İHYT olarak oraya gitmeliyiz.Yaramaz-ı Azam olarak derim ki:İHYT Yeri geldiğinde başkan Huzeyfe'ye zamanında boşa yaramazları tahtaya yazma demiş idi.Huzeyfe dinlememiş idi ve ondan yakın zaman sonrada ona olan sevgi çok azalmıştı.İHYT güçlüdür elbette ki bunu ama anlamayanlarda vardır.Yaramazlık dediğimiz ise sadece hocalara göre olan yaramazlıktır.En son İHYT Konferans'ın da da secretverse'ten bahsetmiştik.");
+                alert("OYUNU KAZANDIN!");
+                window.location.href = location.href;
+            }
+            }
+        }, 500);
+        setInterval(function(){
+            if(oyund.basladimi){
+            oyund.geldi = true;
+            }
+        }, Math.floor(Math.random() * 20000 + 6573));
+        setInterval(function(){
+            if(oyund.basladimi){
+            oyund.geldi2 = true;
+            }
+        }, Math.floor(Math.random() * 40000 + 12739));
+        setInterval(function(){
+            if(oyund.basladimi){
+            oyund.geldi3 = true;
+            }
+        }, Math.floor(Math.random() * 50000 + 20000));
+        setInterval(function(){
+            if(oyund.basladimi){
+            if(!oyund.kapikapali && oyund.geldi && 0.5 < Math.random()){
+                var ses = new Audio("ses.mp3");
+                ses.play();
+                document.getElementById("hepsi").style.display = "none";
+                document.getElementById("jumpscare").style.display = "block";
+                document.getElementById("rsm23").src = "kedijump.png";
+                setTimeout(function(){
+                alert("OYUNU KAYBETTİN.Neden:Hırre");
+                window.location.href = location.href;
+                }, 1000);
+            }
+        }
+        }, Math.floor(Math.random() * 6000 + 2500));
+        setInterval(function(){
+            if(oyund.basladimi){
+            if(!oyund.kapikapali && oyund.geldi2 && 0.3 < Math.random()){
+                if(enerji <= 30 && Math.random() < 0.3){
+                alert("Sen:Secretgöz.. benim enerjim azaldı bekle sen bi.");
+                alert("Olay:Secretgöz'ün pillerini falan çıkarırsın");
+                alert("Sen:Aha enerji kaynağı işte.");
+                alert("Garip Son: Secretgöz'ü bozdun.");
+                window.location.href = location.href;
+            }
+                var ses = new Audio("ses.mp3");
+                ses.play();
+                document.getElementById("hepsi").style.display = "none";
+                document.getElementById("jumpscare").style.display = "block";
+                document.getElementById("rsm23").src = "secretgoz.png";
+            setTimeout(function(){
+                alert("OYUNU KAYBETTİN.Neden:Secretgöz");
+                window.location.href = location.href;
+                }, 1000);
+            }
+        }
+        }, Math.floor(Math.random() * 2000 + 1000));
+        /*belki eklenebilcek bir özellik:
+        Fotononom Fantomu
+        Küf + Oksijen + Işık = Fotononom Fantomu
+
+    Nerede: Rutubetli, küflü, karanlık yerlerde
+
+    Nasıl: Küf havada oksijenle karışır, ışık (foton) gelince hızla tepkimeye girer
+
+    Ne olur: Geçici bir madde oluşur — plazma/gaz
+
+    Nasıl görünür: Korkunç şekillerde (yüz, secretgöz, göz vs.) ama anlık gelip geçer
+
+    Zarar: Yok. Sadece korkutur.
+
+    Çözüm: Fosfor ışığını küflü nemli yerlere koy. Küf yayılmaz, fantom oluşamaz.
+    ve birde oyunda jumpscare'ler oyun mekaniği normal hikayede jumpscare yok sadece hırre gelip kızıyor yada sadece gelip gidiyor yada secretgöz'de sırf random hareket etsin diye yapılmış bir robot.
+        */
+    </script>
+</body>
+</html>
